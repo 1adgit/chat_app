@@ -19,7 +19,7 @@ import { FormControl } from "@chakra-ui/react";
 import io from "socket.io-client";
 import animationData from "../animations/typing.json";
 const asyncHandler = require("express-async-handler");
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = process.env.REACT_APP_BACKEND_URL;
 const defaultOptions = {
   loop: true,
   autoplay: true,
