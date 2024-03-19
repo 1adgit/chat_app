@@ -6,6 +6,7 @@ const messageRoutes = require("./routes/messageRoutes");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const path = require("path");
 const cors = require("cors");
 dotenv.config();
 connectDB();
@@ -19,9 +20,9 @@ app.use(express.json()); //to parse json data
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
-app.get("/", (req, res) => {
-  res.send("API is running");
-});
+// app.get("/", (req, res) => {
+//   res.send("API is running");
+// });
 
 // app.get("/api/chat", (req, res) => {
 //   res.send(chats);
@@ -33,9 +34,6 @@ app.get("/", (req, res) => {
 //   res.send(singleChat);
 // });
 
-app.use(notFound);
-app.use(errorHandler);
-
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
@@ -46,19 +44,21 @@ const io = require("socket.io")(server, {
   },
 });
 
-const __dirname1 = path.resolve();
+// const __dirname1 = path.resolve();
+// console.log(__dirname1);
+// // console.log(process.env.NODE_ENV);
+// if (process.env.NODE_ENV == "production") {
+//   console.log("PRODUCTION");
+//   app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname1, "/frontend/build")));
-
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running..");
-  });
-}
+//   app.get("*", (req, res) =>
+//     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
+//   );
+// } else {
+//   app.get("/", (req, res) => {
+//     res.send("API is running..");
+//   });
+// }
 
 io.on("connection", (socket) => {
   socket.on("setup", (userData) => {
@@ -87,3 +87,6 @@ io.on("connection", (socket) => {
     });
   });
 });
+
+app.use(notFound);
+app.use(errorHandler);

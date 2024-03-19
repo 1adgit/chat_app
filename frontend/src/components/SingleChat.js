@@ -6,6 +6,7 @@ import { Text, useSafeLayoutEffect, useToast } from "@chakra-ui/react";
 import { IconButton } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { getSender } from "../config/ChatLogics";
+
 import ProfileModal from "./miscellaneous/ProfileModal";
 import { getSenderFull } from "../config/ChatLogics";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
